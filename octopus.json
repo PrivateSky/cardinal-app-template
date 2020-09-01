@@ -1,75 +1,64 @@
 {
   "workDir": ".",
   "dependencies": [
-	{
-	  "name": "privatesky",
-	  "src": "https://github.com/privatesky/privatesky.git",
-	  "actions": [
-		{
-		  "type": "smartClone",
-		  "target": "./temp",
-		  "collectLog": false
-		},
-		{
-		  "type": "execute",
-		  "cmd": "cd ./temp/privatesky && npm install && npm run build"
-		},
-		{
-		  "type": "copy",
-		  "src": "./temp/privatesky/psknode/bundles/webshims.js",
-		  "target": "./scripts/bundles/webshims.js",
-		  "options": {
-			"overwrite": true
-		  }
-		},
-		{
-		  "type": "copy",
-		  "src": "./temp/privatesky/psknode/bundles/pskruntime.js",
-		  "target": "./scripts/bundles/pskruntime.js",
-		  "options": {
-			"overwrite": true
-		  }
-		}
-	  ]
-	},
-	{
-	  "name": "cardinal",
-	  "src": "https://github.com/privatesky/cardinal.git",
-	  "actions": [
-		{
-		  "type": "smartClone",
-		  "target": "./temp",
-		  "collectLog": false
-		},
-		{
-		  "type": "execute",
-		  "cmd": "cd ./temp/cardinal && npm install && npm run build"
-		},
-		{
-		  "type": "copy",
-		  "src": "./temp/cardinal/dist/cardinal",
-		  "target": "./cardinal",
-		  "options": {
-			"overwrite": true
-		  }
-		},
-		{
-		  "type": "copy",
-		  "src": "./temp/cardinal/dist/cardinal.js",
-		  "target": "./cardinal.js",
-		  "options": {
-			"overwrite": true
-		  }
-		},
-		{
-		  "type": "remove",
-		  "target": "./temp"
-		},
-		{
-		  "type": "remove",
-		  "target": "./latest-change-set.txt"
-		}
-	  ]
-	}
+    {
+      "name": "cardinal",
+      "src": "https://github.com/privatesky/cardinal.git",
+      "actions": [
+        {
+          "type": "smartClone",
+          "target": "./dev/",
+          "collectLog": false
+        },
+		 {
+          "type": "execute",
+          "cmd": "cd ./dev/cardinal && npm install"
+        }
+      ]
+    },
+    {
+      "name": "clear-sky-theme",
+      "src": "https://github.com/PrivateSky/clear-sky-theme.git",
+      "actions": [
+        {
+          "type": "smartClone",
+          "target": "./dev/themes",
+          "collectLog": false
+        }
+      ]
+    }
+  ],
+  "build-cardinal": [
+    {
+      "name": "cardinal-build",
+      "src": "",
+      "actions": [
+        {
+          "type": "remove",
+          "target": "./cardinal"
+        },
+        {
+          "type": "execute",
+          "cmd": "cd dev/cardinal && npm run dist ../../"
+        }
+      ]
+    }
+  ],
+  "build-theme": [
+    {
+      "name": "clear-sky-theme-copy",
+      "src": "",
+      "actions": [
+        {
+          "type": "remove",
+          "target": "./themes/clear-sky-theme"
+        },
+        {
+          "type": "copy",
+          "src": "./dev/themes/clear-sky-theme/src",
+          "target": "./themes/clear-sky-theme"
+        }
+      ]
+    }
   ]
 }
